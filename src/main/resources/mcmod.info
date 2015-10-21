@@ -1,0 +1,16 @@
+[
+{
+  "modid": "contenttweaker",
+  "name": "ContentTweaker",
+  "description": "Allows you to create items, blocks and Tinkers construct materials via ZenScript.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Jaredlll08"],
+  "credits": "",
+  "logoFile": "CTLogo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
