@@ -61,10 +61,6 @@ public class ContentHelper {
 		materials.put("web", Material.web);
 		materials.put("wood", Material.wood);
 
-		for (CreativeTabs tab : CreativeTabs.creativeTabArray) {
-			tabs.put(tab.getTabLabel(), tab);
-		}
-
 	}
 
 	public static ItemStack toStack(IItemStack iStack) {

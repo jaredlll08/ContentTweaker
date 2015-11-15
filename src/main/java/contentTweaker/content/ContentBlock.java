@@ -18,9 +18,6 @@ public class ContentBlock {
 
 	@ZenMethod
 	public static void registerBlock(String name, String unlocalizedName, String material, String textureName, @Optional String creativeTab, @Optional int renderType, @Optional IItemStack[] drops, @Optional boolean unbreakable, @Optional double hardness, @Optional float lightLevel, @Optional int lightOpacity) {
-		if (creativeTab == null) {
-			creativeTab = CreativeTabs.tabAllSearch.getTabLabel();
-		}
 		if (unbreakable) {
 			hardness = -1;
 		}
@@ -31,7 +28,7 @@ public class ContentBlock {
 			textureName = "contenttweaker:" + textureName;
 		}
 		ItemStack[] iDrops = ContentHelper.toStacks(drops);
-		MineTweakerAPI.apply(new Add(name, unlocalizedName, ContentHelper.materials.get(material), textureName, ContentHelper.tabs.get(creativeTab), renderType, iDrops, unbreakable, (float) hardness, lightLevel, lightOpacity));
+		MineTweakerAPI.apply(new Add(name, unlocalizedName, ContentHelper.materials.get(material), textureName, renderType, iDrops, unbreakable, (float) hardness, lightLevel, lightOpacity));
 	}
 
 	private static class Add implements IUndoableAction {
@@ -39,7 +36,6 @@ public class ContentBlock {
 		public String unlocalizedName;
 		public Material material;
 		public String textureName;
-		public CreativeTabs tab;
 		public boolean unbreakable;
 		public float hardness;
 		public float lightLevel;
@@ -47,12 +43,11 @@ public class ContentBlock {
 		public int renderType;
 		public ItemStack[] drops;
 
-		public Add(String name, String unlocalizedName, Material material, String textureName, CreativeTabs tab, int renderType, ItemStack[] drops, boolean unbreakable, float hardness, float lightLevel, int lightOpacity) {
+		public Add(String name, String unlocalizedName, Material material, String textureName, int renderType, ItemStack[] drops, boolean unbreakable, float hardness, float lightLevel, int lightOpacity) {
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 			this.material = material;
 			this.textureName = textureName;
-			this.tab = tab;
 			this.unbreakable = unbreakable;
 			this.hardness = hardness;
 			this.lightLevel = lightLevel;
@@ -64,7 +59,7 @@ public class ContentBlock {
 		@Override
 		public void apply() {
 			if (GameRegistry.findBlock("contenttweaker", unlocalizedName) == null) {
-				GameRegistry.registerBlock(new BlockCustom(material, unbreakable, renderType, drops).setBlockTextureName(textureName).setCreativeTab(tab).setBlockName(name).setHardness(hardness).setLightLevel(lightLevel).setLightOpacity(lightOpacity), unlocalizedName);
+				GameRegistry.registerBlock(new BlockCustom(material, unbreakable, renderType, drops).setBlockTextureName(textureName).setBlockName(name).setHardness(hardness).setLightLevel(lightLevel).setLightOpacity(lightOpacity), unlocalizedName);
 			}
 		}
 

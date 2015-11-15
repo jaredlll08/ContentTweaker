@@ -15,9 +15,6 @@ public class ContentItem {
 
 	@ZenMethod
 	public static void registerItem(String name, String unlocalizedName, String textureName, @Optional String tab, @Optional int maxDamage, @Optional int maxStackSize, @Optional String toolType, @Optional int toolLevel, @Optional boolean full3d, @Optional String[] lore) {
-		if (tab == null) {
-			tab = CreativeTabs.tabAllSearch.getTabLabel();
-		}
 		if (toolType != null && toolType.isEmpty()) {
 			toolType = "null";
 		}
@@ -30,7 +27,7 @@ public class ContentItem {
 		if(!textureName.contains(":")){
 			textureName = "contenttweaker:" + textureName;
 		}
-		MineTweakerAPI.apply(new Add(name, unlocalizedName, textureName, ContentHelper.tabs.get(tab), maxDamage, maxStackSize, toolType, toolLevel, full3d, lore));
+		MineTweakerAPI.apply(new Add(name, unlocalizedName, textureName, maxDamage, maxStackSize, toolType, toolLevel, full3d, lore));
 	}
 
 	private static class Add implements IUndoableAction {
@@ -38,7 +35,6 @@ public class ContentItem {
 		public String name;
 		public String unlocalizedName;
 		public String textureName;
-		public CreativeTabs tab;
 		public int maxDamage;
 		public int maxStackSize;
 		public String toolType;
@@ -46,11 +42,10 @@ public class ContentItem {
 		public boolean full3D;
 		public String[] lore;
 
-		public Add(String name, String unlocalizedName, String textureName, CreativeTabs tab, int maxDamage, int maxStackSize, String toolType, int toolLevel, boolean full3d, String[] lore) {
+		public Add(String name, String unlocalizedName, String textureName, int maxDamage, int maxStackSize, String toolType, int toolLevel, boolean full3d, String[] lore) {
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 			this.textureName = textureName;
-			this.tab = tab;
 			this.maxDamage = maxDamage;
 			this.maxStackSize = maxStackSize;
 			this.toolType = toolType;
@@ -62,7 +57,7 @@ public class ContentItem {
 		@Override
 		public void apply() {
 			if (GameRegistry.findItem("contenttweaker", unlocalizedName) == null) {
-				GameRegistry.registerItem(new ItemCustom(toolType, toolLevel, full3D, lore).setCreativeTab(tab).setMaxDamage(maxDamage).setMaxStackSize(maxStackSize).setTextureName(textureName).setUnlocalizedName(unlocalizedName), unlocalizedName);
+				GameRegistry.registerItem(new ItemCustom(toolType, toolLevel, full3D, lore).setMaxDamage(maxDamage).setMaxStackSize(maxStackSize).setTextureName(textureName).setUnlocalizedName(unlocalizedName), unlocalizedName);
 			}
 		}
 

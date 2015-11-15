@@ -2,7 +2,13 @@ package contentTweaker;
 
 import java.io.File;
 
+import javafx.scene.ParentBuilder;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.crafting.PatternBuilder.ItemKey;
+import tconstruct.library.tools.ToolMaterial;
+import tconstruct.smeltery.TinkerSmelteryEvents;
+import tconstruct.tools.TinkerTools;
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
 import minetweaker.mc1710.brackets.ItemBracketHandler;
@@ -24,11 +30,13 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fluxedCore.util.ResourcePackAssembler;
 
-@Mod(modid = "contenttweaker", name = "Content Tweaker", version = "1.0.1", dependencies = "required-after:MineTweaker3; after:TConstruct;required-after:fluxedcore;")
+@Mod(modid = "contenttweaker", name = "Content Tweaker", version = "1.0.4", dependencies = "required-after:MineTweaker3; after:TConstruct;required-after:fluxedcore;")
 public class Tweaker {
 	public static File configDir = null;
 	public static int liquidID;
@@ -61,7 +69,6 @@ public class Tweaker {
 		}
 		MineTweakerImplementationAPI.setScriptProvider(new ScriptProviderDirectory(global));
 		MineTweakerImplementationAPI.reload();
-
 	}
 
 	@EventHandler
