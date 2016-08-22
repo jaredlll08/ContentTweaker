@@ -1,10 +1,10 @@
 package contentTweaker.content;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.impl.client.ContentEncodingHttpClient;
-
+import com.google.common.base.Strings;
+import contentTweaker.api.EnchantHelper;
+import contentTweaker.api.EnchantHelper.EnchantmentWithLevel;
+import contentTweaker.content.materials.MaterialCustom;
+import contentTweaker.helpers.ContentHelper;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
@@ -14,12 +14,8 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import com.google.common.base.Strings;
-
-import contentTweaker.api.EnchantHelper;
-import contentTweaker.api.EnchantHelper.EnchantmentWithLevel;
-import contentTweaker.content.materials.MaterialCustom;
-import contentTweaker.helpers.ContentHelper;
+import java.util.ArrayList;
+import java.util.List;
 
 @ZenClass("mods.content.Material")
 public class ContentMaterials {
@@ -31,11 +27,9 @@ public class ContentMaterials {
 		}
 
 		EnchantmentWithLevel[] enchants = null;
-		if (nativeEnchantments == null)
+		if (nativeEnchantments == null || nativeEnchantments.length == 0)
 			enchants = new EnchantmentWithLevel[0];
-		if (nativeEnchantments.length == 0)
-			enchants = new EnchantmentWithLevel[0];
-		if (nativeEnchantments != null && nativeEnchantments.length > 0) {
+		else {
 			List<EnchantmentWithLevel> out = new ArrayList<EnchantmentWithLevel>();
 			for (String string : nativeEnchantments) {
 				if (Strings.isNullOrEmpty(string))
