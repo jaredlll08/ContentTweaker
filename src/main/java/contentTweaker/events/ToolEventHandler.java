@@ -22,32 +22,6 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ToolEventHandler {
-	@SubscribeEvent
-	public void bucketFill(FillBucketEvent evt) {
-		if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == MovingObjectType.BLOCK) {
-			int hitX = evt.target.blockX;
-			int hitY = evt.target.blockY;
-			int hitZ = evt.target.blockZ;
-
-			if (evt.entityPlayer != null && !evt.entityPlayer.canPlayerEdit(hitX, hitY, hitZ, evt.target.sideHit, evt.current)) {
-				return;
-			}
-
-			Block bID = evt.world.getBlock(hitX, hitY, hitZ);
-			for (int id = 0; id < ContentHelper.fluids.size(); id++) {
-				if (bID == ContentHelper.fluids.get(id)) {
-					if (evt.entityPlayer.capabilities.isCreativeMode) {
-						evt.world.setBlockToAir(hitX, hitY, hitZ);
-					} else {
-						evt.world.setBlockToAir(hitX, hitY, hitZ);
-
-						evt.setResult(Result.ALLOW);
-						evt.result = new ItemStack(ContentHelper.buckets.get(id));
-					}
-				}
-			}
-		}
-	}
 
 	@SubscribeEvent
 	public void lore(ItemTooltipEvent event) {
@@ -85,23 +59,12 @@ public class ToolEventHandler {
 					}
 
 					if (toolTip) {
-						event.toolTip.add(EnumChatFormatting.DARK_RED + "This tool contains a part added by JSONAbles.");
+						event.toolTip.add(EnumChatFormatting.DARK_RED + "This tool contains a part added by ContentTweaker.");
 					}
 				}
 			}
 		}
 	}
-
-	// @SubscribeEvent
-	// public void craftTool(ToolCraftEvent.NormalTool event) {
-	// NBTTagCompound toolTag = event.toolTag.getCompoundTag("InfiTool");
-	// int modifiers = toolTag.getInteger("Modifiers");
-	// modifiers += ContentHelper.getModifiers(toolTag.getInteger("Head"));
-	// modifiers += ContentHelper.getModifiers(toolTag.getInteger("Handle"));
-	// modifiers += ContentHelper.getModifiers(toolTag.getInteger("Accessory"));
-	// modifiers += ContentHelper.getModifiers(toolTag.getInteger("Extra"));
-	// toolTag.setInteger("Modifiers", modifiers);
-	// }
 
 	@SubscribeEvent(priority = EventPriority.LOW)
 	// Low priority, so that Tickers' WeaponryHandler can do its thing first

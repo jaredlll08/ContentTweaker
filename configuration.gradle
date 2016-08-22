@@ -1,0 +1,25 @@
+
+// #######################
+// ### Global settings ###
+// #######################
+
+ext.contentTweakerVersion = "1.0.6"
+
+
+// #######################
+// ### 1.7.10 settings ###
+// #######################
+
+ext.forgeVersion1710 = "1.7.10-10.13.4.1614-1.7.10"
+ext.projects1710 = [
+	'ContentTweaker-MC1710'
+]
+
+// ####################
+// ### 1.8.9 settings ###
+// ####################
+
+ext.forgeVersion189 = "1.8.9-11.15.0.1684"
+ext.projects189 = [
+	'ContentTweaker-MC189'
+]
